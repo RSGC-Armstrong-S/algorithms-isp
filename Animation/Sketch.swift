@@ -33,7 +33,8 @@ class Sketch : NSObject, ORSSerialPortDelegate {
     var W = 10
     var H = 10
     var i = 0
-    var Ell = [0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345, 360, 375, 390, 405, 420, 435, 450, 465, 480, 495, 510, 525, 540, 555, 570, 585, 600, 615, 630, 645, 660, 675, 690, 705, 720, 735, 750, 765, 780, 795, 810, 825, 840, 855, 870, 885, 900, 915, 930, 945, 960, 975, 990, 1005, 1020, 1035, 1050, 1065, 1080, 1095, 1110, 1125, 1140, 1155, 1170, 1185, 1200, 1215, 1230, 1245, 1260, 1275, 1290, 1305, 1320, 1335, 1350, 1365, 1380, 1395, 1410, 1425, 1440, 1455, 1470, 1485, 1500]
+    
+//    var dis = ?
     
     
     // This runs once, equivalent to setup() in Processing
@@ -80,10 +81,14 @@ class Sketch : NSObject, ORSSerialPortDelegate {
         // Horizontal position of circle
         x = x + s
         
-        // Bounce when hitting wall
+        // Bounce when hitting wall for circle
         if (x*50 > canvas.width || x < 0) {
             s *= -1
         }
+        
+        
+     
+        
         
         // Clear the background
         canvas.drawShapesWithBorders = false
@@ -101,18 +106,29 @@ class Sketch : NSObject, ORSSerialPortDelegate {
         
         // Draw a circle that moves across the screen
         canvas.drawShapesWithBorders = false
-        canvas.fillColor = Color(hue: Float(canvas.frameCount*5), saturation: 80, brightness: 90, alpha: 100)
+        
+          canvas.fillColor = Color(hue: Float(canvas.frameCount*5), saturation: 80, brightness: 90, alpha: 100)
+
+//        if(dis > ____)
+//        canvas.fillColor = Color(hue: 20), saturation: 80, brightness: 90, alpha: 100)
+//        
+//        }   else    {
+//        canvas.fillColor = Color(hue: 100), saturation: 80, brightness: 90, alpha: 100)
+//        
+//    }
     
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 0, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 15, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 30, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 45, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 60, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 75, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 90, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 105, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 120, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 0 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 15 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 30 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 45 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 60 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 75 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 90 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 105 + y, width: W, height: H)
+        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 120 + y, width: W, height: H)
+        
     }
+
     
     // ORSSerialPortDelegate
     // These four methods are required to conform to the ORSSerialPort protocol
