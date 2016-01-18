@@ -27,21 +27,34 @@ class Sketch : NSObject, ORSSerialPortDelegate {
     var serialPort : ORSSerialPort?       // Object required to read serial port
     var serialBuffer : String = ""
   
+    // Distance line
     var y = 0
-    var x = 1
+    var x = 0
+    
+    // Number line
+    var x2 = 0
+    var y2 = 0
+    
+    // Moving the distance circle
     var s = 1
-    var W = 10
+    var Speed = 3
+    
+    // Weight / Width
     var H = 10
-    var i = 0
+    var W = 10
     
-//    var dis = ?
-    
+
+
     
     // This runs once, equivalent to setup() in Processing
     override init() {
         
         // Create canvas object – specify size
         canvas = Canvas(width: 1200, height: 700)
+       
+        // While background
+        canvas.fillColor = Color(hue: 0, saturation: 00, brightness: 100, alpha: 100)
+        canvas.drawRectangle(bottomRightX: 0, bottomRightY: 0, width: canvas.width, height: canvas.height)
     
         // The frame rate can be adjusted; the default is 60 fps
         canvas.framesPerSecond = 60
@@ -53,8 +66,8 @@ class Sketch : NSObject, ORSSerialPortDelegate {
         var availablePorts = ORSSerialPortManager.sharedSerialPortManager().availablePorts
         if availablePorts.count == 0 {
             
-            // Show error message if no ports found
-            print("No connected serial ports found. Please connect your USB to serial adapter(s) and run the program again.\n")
+        // Show error message if no ports found
+        print("No connected serial ports found. Please connect your USB to serial adapter(s) and run the program again.\n")
             exit(EXIT_SUCCESS)
             
         } else {
@@ -78,54 +91,42 @@ class Sketch : NSObject, ORSSerialPortDelegate {
     // Runs repeatedly, equivalent to draw() in Processing
     func draw() {
         
+        canvas.drawShapesWithBorders = false
+
+
         // Horizontal position of circle
         x = x + s
+
         
-        // Bounce when hitting wall for circle
-        if (x*50 > canvas.width || x < 0) {
-            s *= -1
+        // Draw distance graph
+        canvas.fillColor = Color(hue: Float(canvas.frameCount*4), saturation: 100, brightness: 100, alpha: 100)
+        canvas.drawEllipse(centreX: x * Speed, centreY: y * 2 - 30, width: W, height: H)
+        
+        // Loop for x and y number lines
+        while (x > 0 && x2 < 1200){
+            
+            canvas.fillColor = Color(hue: 0, saturation: 100, brightness: 00, alpha: 100)
+
+            // X-axis
+            canvas.drawRectangle(bottomRightX: x2, bottomRightY: 0, width: 5, height: 10)
+            x2 = x2 + 20
+            
+            // Y-axis
+            canvas.drawRectangle(bottomRightX: 0, bottomRightY: y2, width: 10, height: 5)
+            y2 = y2 + 20
+
         }
         
         
-     
-        
-        
-        // Clear the background
-        canvas.drawShapesWithBorders = false
-        canvas.fillColor = Color(hue: 0, saturation: 100, brightness: 00, alpha: 100)
-        canvas.drawRectangle(bottomRightX: 0, bottomRightY: 0, width: canvas.width, height: canvas.height)
-        
-        
-        //borders
-        canvas.fillColor = Color(hue: Float(canvas.frameCount*5), saturation: 99, brightness: 100, alpha: 100)
-        canvas.drawRectangle(bottomRightX: 0, bottomRightY: 0, width: 1200, height: 50)
-        
-        canvas.fillColor = Color(hue: Float(canvas.frameCount*5), saturation: 99, brightness: 100, alpha: 100)
-        canvas.drawRectangle(bottomRightX: 0, bottomRightY: 650, width: 1200, height: 50)
-        
-        
-        // Draw a circle that moves across the screen
-        canvas.drawShapesWithBorders = false
-        
-          canvas.fillColor = Color(hue: Float(canvas.frameCount*5), saturation: 80, brightness: 90, alpha: 100)
-
-//        if(dis > ____)
-//        canvas.fillColor = Color(hue: 20), saturation: 80, brightness: 90, alpha: 100)
-//        
-//        }   else    {
-//        canvas.fillColor = Color(hue: 100), saturation: 80, brightness: 90, alpha: 100)
-//        
-//    }
-    
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 0 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 15 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 30 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 45 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 60 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 75 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 90 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 105 + y, width: W, height: H)
-        canvas.drawEllipse(centreX: x*50, centreY: canvas.height / 2 + 120 + y, width: W, height: H)
+  
+        // Resetting backround, graph line and numberlines
+        if (x * Speed > canvas.width) {
+            x = 0
+            x2 = 0
+            y2 = 0
+            canvas.fillColor = Color(hue: 0, saturation: 00, brightness: 100, alpha: 100)
+            canvas.drawRectangle(bottomRightX: 0, bottomRightY: 0, width: canvas.width, height: canvas.height)
+        }
         
     }
 
@@ -179,3 +180,4 @@ class Sketch : NSObject, ORSSerialPortDelegate {
     }
     
 }
+
