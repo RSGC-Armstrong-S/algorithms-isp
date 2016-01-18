@@ -1,9 +1,12 @@
 Input
 
-
+The input is a distance sensor from arduino, which prints to serial and is read by swift.
 
 Process
 
+Swift takes the distance sensor data and creates a position time graph with it.
 
 
 Output
+
+When you run the program the are tick marks on the x and y axis and the distance sensor values move a circle up and down wile it moves forward.
